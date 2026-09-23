@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Postcards and Possibilities</title>
+  <style>
+    :root {
+      --ink: #243746;
+      --teal: #087e8b;
+      --coral: #f07167;
+      --sand: #fff8ed;
+      --cream: #fffdf8;
+      --line: #d9c8b4;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 32px 20px;
+      color: var(--ink);
+      background-color: #dff3f0;
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      background-color: var(--cream);
+      border: 4px solid var(--teal);
+      padding: 30px;
+      box-shadow: 10px 10px 0 #f4c095;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--teal);
+      font-family: Georgia, serif;
+      font-size: clamp(2.2rem, 6vw, 4.5rem);
+      letter-spacing: 2px;
+      line-height: 1.1;
+    }
+
+    .tagline {
+      margin: 12px 0 28px;
+      color: var(--coral);
+      font-family: "Courier New", monospace;
+      font-size: 1.05rem;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .intro {
+      max-width: 720px;
+      margin-bottom: 28px;
+      font-family: "Trebuchet MS", sans-serif;
+      font-size: 1.15rem;
+    }
+
+    .photo-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin: 24px 0 36px;
+    }
+
+    .photo-row img {
+      width: calc(50% - 10px);
+      min-width: 260px;
+      height: 240px;
+      object-fit: cover;
+      border: 8px solid var(--sand);
+      outline: 2px solid var(--coral);
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+
+    .panel {
+      padding: 22px;
+      background-color: var(--sand);
+      border: 2px solid var(--line);
+      border-radius: 8px;
+    }
+
+    h2 {
+      margin-top: 0;
+      color: var(--teal);
+      font-family: Georgia, serif;
+      border-bottom: 3px solid var(--coral);
+      padding-bottom: 8px;
+    }
+
+    li {
+      margin: 8px 0;
+    }
+
+    .dream-list {
+      font-family: "Trebuchet MS", sans-serif;
+    }
+
+    .dream-list li::marker {
+      color: var(--coral);
+      font-weight: bold;
+    }
+
+    .city-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0 34px;
+      background-color: white;
+      font-family: Verdana, sans-serif;
+    }
+
+    .city-table caption {
+      margin-bottom: 10px;
+      color: var(--teal);
+      font-size: 1.3rem;
+      font-weight: bold;
+      text-align: left;
+    }
+
+    .city-table th,
+    .city-table td {
+      padding: 12px;
+      border: 1px solid var(--line);
+      text-align: left;
+    }
+
+    .city-table th {
+      color: white;
+      background-color: var(--teal);
+    }
+
+    .city-table tr:nth-child(even) {
+      background-color: #f8eee2;
+    }
+
+    .links {
+      padding: 22px;
+      background-color: #e8f6f3;
+      border-left: 6px solid var(--coral);
+      font-family: "Courier New", monospace;
+    }
+
+    a {
+      color: #b53d2f;
+      font-weight: bold;
+      text-decoration-thickness: 2px;
+    }
+
+    a:hover {
+      color: white;
+      background-color: var(--coral);
+      text-decoration: none;
+      padding: 2px 5px;
+    }
+
+    footer {
+      margin-top: 30px;
+      padding-top: 16px;
+      color: #63727b;
+      border-top: 2px solid var(--line);
+      font-style: italic;
+      text-align: center;
+    }
+
+    @media (max-width: 700px) {
+      body {
+        padding: 16px 10px;
+      }
+
+      .page {
+        padding: 20px;
+      }
+
+      .photo-row img {
+        width: 100%;
+      }
+
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .city-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header id="top">
+      <h1>Postcards and Possibilities</h1>
+      <p class="tagline">A personal map of places I hope to discover</p>
+      <p class="intro">
+        I love to travel because every new place changes the way I see ordinary life.
+        A different meal, language, landscape, or conversation can turn a short trip
+        into a story I remember for years.
+      </p>
+    </header>
+
+    <section class="photo-row" aria-label="Travel photographs">
+      <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=900" alt="A scenic road through a green landscape">
+      <img src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=900" alt="A city street in Paris">
+    </section>
+
+    <section class="content-grid">
+      <article class="panel">
+        <h2>Things I Enjoy While Traveling</h2>
+        <ul>
+          <li>Trying regional food at small local restaurants</li>
+          <li>Walking through historic neighborhoods</li>
+          <li>Visiting museums and outdoor markets</li>
+          <li>Taking photographs at sunrise</li>
+          <li>Learning useful phrases in another language</li>
+        </ul>
+      </article>
+
+      <article class="panel">
+        <h2>My Top 5 Dream Destinations</h2>
+        <ol class="dream-list">
+          <li>Kyoto, Japan</li>
+          <li>Queenstown, New Zealand</li>
+          <li>Marrakech, Morocco</li>
+          <li>Reykjavik, Iceland</li>
+          <li>Buenos Aires, Argentina</li>
+        </ol>
+      </article>
+    </section>
+
+    <section id="city-guide">
+      <table class="city-table">
+        <caption>Three Cities Worth Visiting</caption>
+        <thead>
+          <tr>
+            <th>City</th>
+            <th>Country</th>
+            <th>Best season to visit</th>
+            <th>Famous for</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Kyoto</td>
+            <td>Japan</td>
+            <td>Spring</td>
+            <td>Temples and cherry blossoms</td>
+          </tr>
+          <tr>
+            <td>Lisbon</td>
+            <td>Portugal</td>
+            <td>Early autumn</td>
+            <td>Colorful streets and pastries</td>
+          </tr>
+          <tr>
+            <td>Cape Town</td>
+            <td>South Africa</td>
+            <td>Summer</td>
+            <td>Coastlines and Table Mountain</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <nav class="links" aria-label="Travel links">
+      <strong>Keep exploring:</strong>
+      <a href="https://en.wikipedia.org/wiki/World_heritage_site" target="_blank" rel="noopener noreferrer">learn about World Heritage Sites</a>
+      <span> | </span>
+      <a href="#city-guide">jump to the city guide</a>
+      <span> | </span>
+      <a href="https://www.lonelyplanet.com/" target="_blank" rel="noopener noreferrer">open Lonely Planet in a new tab</a>
+    </nav>
+
+    <footer>
+      <a href="#top">Back to the top</a>
+    </footer>
+  </main>
+</body>
+</html>
