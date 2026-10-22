@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2-Level CSS Sprite Navigation</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #ecf0f1;
+      color: #2c3e50;
+      line-height: 1.6;
+    }
+
+    /* ========== 2-LEVEL HORIZONTAL NAV ========== */
+    .nav-wrapper {
+      background: #2c3e50;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+      position: sticky;
+      top: 0;
+      z-index: 200;
+    }
+
+    /* Level 1 – primary horizontal bar */
+    .nav-primary {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .nav-primary > li {
+      position: relative;          /* needed for dropdown positioning */
+      flex: 1;
+      max-width: 160px;
+    }
+
+    .nav-primary > li > a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 12px 6px 10px;
+      text-decoration: none;
+      color: #bdc3c7;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .nav-primary > li > a:hover,
+    .nav-primary > li > a:focus,
+    .nav-primary > li:hover > a {
+      background: #34495e;
+      color: #fff;
+    }
+
+    .nav-primary > li > a.active {
+      background: #1a252f;
+      color: #3498db;
+    }
+
+    /* Sprite icons */
+    .icon {
+      width: 48px;
+      height: 48px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='288' height='48' viewBox='0 0 288 48' fill='none' stroke='%23ecf0f1' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 22 24 9l16 13v17H28V28h-8v11H8z'/%3E%3Ccircle cx='72' cy='17' r='7'/%3E%3Cpath d='M58 39c1-9 6-14 14-14s13 5 14 14'/%3E%3Crect x='104' y='16' width='32' height='25' rx='3'/%3E%3Cpath d='M104 23h32M112 16v-5h16v5'/%3E%3Crect x='152' y='13' width='32' height='28' rx='3'/%3E%3Cpath d='m152 21 16 11 16-11'/%3E%3Cpath d='m208 24 16-13 16 13M213 22v18h22V22M221 40V29h7v11'/%3E%3Cpath d='m253 16 7 8 7-8'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      margin-bottom: 3px;
+      transition: transform 0.2s;
+    }
+
+    .nav-primary > li > a:hover .icon {
+      transform: scale(1.08);
+    }
+
+    .icon-home     { background-position:    0   0; }
+    .icon-about    { background-position:  -48px 0; }
+    .icon-services { background-position:  -96px 0; }
+    .icon-portfolio{ background-position: -144px 0; }
+    .icon-contact  { background-position: -192px 0; }
+    .icon-sub      { background-position: -240px 0; width: 20px; height: 20px; display: inline-block; vertical-align: middle; margin: 0 6px 0 0; }
+
+    /* Level 2 – dropdown submenus */
+    .nav-secondary {
+      list-style: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #34495e;
+      min-width: 180px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-8px);
+      transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+      border-radius: 0 0 6px 6px;
+      z-index: 210;
+    }
+
+    /* Show submenu on hover / focus */
+    .nav-primary > li:hover > .nav-secondary,
+    .nav-primary > li:focus-within > .nav-secondary {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .nav-secondary li a {
+      display: flex;
+      align-items: center;
+      padding: 11px 16px;
+      color: #ecf0f1;
+      text-decoration: none;
+      font-size: 0.9rem;
+      border-bottom: 1px solid #2c3e50;
+      transition: background 0.15s, padding-left 0.15s;
+    }
+
+    .nav-secondary li:last-child a {
+      border-bottom: none;
+      border-radius: 0 0 6px 6px;
+    }
+
+    .nav-secondary li a:hover {
+      background: #1abc9c;
+      color: #fff;
+      padding-left: 22px;
+    }
+
+    /* ========== PAGE CONTENT ========== */
+    header {
+      text-align: center;
+      padding: 2.5rem 1rem 1.5rem;
+      background: linear-gradient(135deg, #3498db, #2980b9);
+      color: white;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      margin-bottom: 0.4rem;
+    }
+
+    header p {
+      opacity: 0.9;
+      font-size: 1.05rem;
+    }
+
+    main {
+      max-width: 960px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+
+    .card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .card .caption {
+      padding: 1rem 1.2rem;
+    }
+
+    .card h2 {
+      font-size: 1.25rem;
+      margin-bottom: 0.4rem;
+      color: #2c3e50;
+    }
+
+    .card p {
+      color: #7f8c8d;
+      font-size: 0.95rem;
+    }
+
+    .info {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      margin-bottom: 2rem;
+    }
+
+    .info h2 {
+      margin-bottom: 0.8rem;
+      color: #2980b9;
+    }
+
+    .info ul {
+      margin-left: 1.4rem;
+    }
+
+    .info li {
+      margin-bottom: 0.35rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      background: #2c3e50;
+      color: #bdc3c7;
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: #3498db;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 700px) {
+      .nav-primary {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      .nav-primary > li {
+        max-width: none;
+        min-width: 0;
+      }
+      .nav-primary > li > a {
+        font-size: 0.75rem;
+        padding: 10px 4px 8px;
+      }
+      .icon {
+        width: 36px;
+        height: 36px;
+        background-size: 216px 36px;
+      }
+      .icon-home      { background-position:    0   0; }
+      .icon-about     { background-position:  -36px 0; }
+      .icon-services  { background-position:  -72px 0; }
+      .icon-portfolio { background-position: -108px 0; }
+      .icon-contact   { background-position: -144px 0; }
+
+      .nav-secondary {
+        left: 50%;
+        right: auto;
+        width: min(220px, calc(100vw - 2rem));
+        min-width: 0;
+        transform: translate(-50%, -8px);
+      }
+
+      .nav-primary > li:hover > .nav-secondary,
+      .nav-primary > li:focus-within > .nav-secondary {
+        transform: translate(-50%, 0);
+      }
+
+      .nav-primary > li:first-child > .nav-secondary,
+      .nav-primary > li:nth-child(4) > .nav-secondary {
+        left: 0;
+        transform: translateY(-8px);
+      }
+
+      .nav-primary > li:first-child:hover > .nav-secondary,
+      .nav-primary > li:first-child:focus-within > .nav-secondary,
+      .nav-primary > li:nth-child(4):hover > .nav-secondary,
+      .nav-primary > li:nth-child(4):focus-within > .nav-secondary {
+        transform: translateY(0);
+      }
+
+      .nav-primary > li:nth-child(3) > .nav-secondary {
+        left: auto;
+        right: 0;
+        transform: translateY(-8px);
+      }
+
+      .nav-primary > li:nth-child(3):hover > .nav-secondary,
+      .nav-primary > li:nth-child(3):focus-within > .nav-secondary {
+        transform: translateY(0);
+      }
+
+      .icon-sub {
+        width: 15px;
+        height: 15px;
+        background-position: -180px 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header {
+        padding: 2rem 1rem 1.25rem;
+      }
+
+      header h1 {
+        font-size: clamp(1.5rem, 7vw, 2rem);
+      }
+
+      header p {
+        font-size: 0.95rem;
+      }
+
+      main {
+        margin: 1.25rem auto;
+        padding: 0 0.75rem;
+      }
+
+      .gallery {
+        gap: 1rem;
+      }
+
+      .card img {
+        height: auto;
+        aspect-ratio: 16 / 9;
+      }
+
+      .card .caption,
+      .info {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== 2-LEVEL HORIZONTAL NAV WITH SPRITES ========== -->
+  <nav class="nav-wrapper" aria-label="Main navigation">
+    <ul class="nav-primary">
+      <!-- Home (no submenu) -->
+      <li>
+        <a href="#home" class="active">
+          <span class="icon icon-home" aria-hidden="true"></span>
+          Home
+        </a>
+      </li>
+
+      <!-- About + Level-2 dropdown -->
+      <li>
+        <a href="#about">
+          <span class="icon icon-about" aria-hidden="true"></span>
+          About
+        </a>
+        <ul class="nav-secondary">
+          <li><a href="#about-team"><span class="icon icon-sub"></span>Our Team</a></li>
+          <li><a href="#about-history"><span class="icon icon-sub"></span>History</a></li>
+          <li><a href="#about-mission"><span class="icon icon-sub"></span>Mission</a></li>
+        </ul>
+      </li>
+
+      <!-- Services + Level-2 dropdown -->
+      <li>
+        <a href="#services">
+          <span class="icon icon-services" aria-hidden="true"></span>
+          Services
+        </a>
+        <ul class="nav-secondary">
+          <li><a href="#svc-web"><span class="icon icon-sub"></span>Web Design</a></li>
+          <li><a href="#svc-app"><span class="icon icon-sub"></span>App Development</a></li>
+          <li><a href="#svc-seo"><span class="icon icon-sub"></span>SEO & Marketing</a></li>
+          <li><a href="#svc-support"><span class="icon icon-sub"></span>Support</a></li>
+        </ul>
+      </li>
+
+      <!-- Portfolio + Level-2 dropdown -->
+      <li>
+        <a href="#portfolio">
+          <span class="icon icon-portfolio" aria-hidden="true"></span>
+          Portfolio
+        </a>
+        <ul class="nav-secondary">
+          <li><a href="#port-web"><span class="icon icon-sub"></span>Web Projects</a></li>
+          <li><a href="#port-mobile"><span class="icon icon-sub"></span>Mobile Apps</a></li>
+          <li><a href="#port-brand"><span class="icon icon-sub"></span>Branding</a></li>
+        </ul>
+      </li>
+
+      <!-- Contact (no submenu) -->
+      <li>
+        <a href="#contact">
+          <span class="icon icon-contact" aria-hidden="true"></span>
+          Contact
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- ========== HEADER ========== -->
+  <header id="home">
+    <h1>2-Level CSS Sprite Navigation</h1>
+    <p>Horizontal primary bar · Dropdown secondary level · CSS sprites · Two images · Links</p>
+  </header>
+
+  <!-- ========== MAIN CONTENT ========== -->
+  <main>
+    <!-- Two images -->
+    <section class="gallery">
+      <article class="card">
+        <img src="grandcanyon.jpg" alt="The Grand Canyon and Colorado River">
+        <div class="caption">
+          <h2>Grand Canyon</h2>
+          <p>A wide view across the canyon and the Colorado River.</p>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="testimage.jpg" alt="Sheep grazing in a green mountain pasture">
+        <div class="caption">
+          <h2>Mountain Pasture</h2>
+          <p>Sheep graze across a green hillside.</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- Linked sections -->
+    <section class="info" id="about">
+      <h2>About</h2>
+      <p>Primary “About” page. Hover the About item in the nav to see the Level-2 submenu.</p>
+    </section>
+
+    <section class="info" id="about-team">
+      <h2>Our Team</h2>
+      <p>Sub-page linked from the About dropdown.</p>
+    </section>
+
+    <section class="info" id="about-history">
+      <h2>History</h2>
+      <p>Sub-page linked from the About dropdown.</p>
+    </section>
+
+    <section class="info" id="about-mission">
+      <h2>Mission</h2>
+      <p>Sub-page linked from the About dropdown.</p>
+    </section>
+
+    <section class="info" id="services">
+      <h2>Services</h2>
+      <p>Primary Services section. Hover Services in the nav for the secondary links.</p>
+    </section>
+
+    <section class="info" id="svc-web">
+      <h2>Web Design</h2>
+      <p>Service sub-page.</p>
+    </section>
+
+    <section class="info" id="svc-app">
+      <h2>App Development</h2>
+      <p>Service sub-page.</p>
+    </section>
+
+    <section class="info" id="svc-seo">
+      <h2>SEO & Marketing</h2>
+      <p>Service sub-page.</p>
+    </section>
+
+    <section class="info" id="svc-support">
+      <h2>Support</h2>
+      <p>Service sub-page.</p>
+    </section>
+
+    <section class="info" id="portfolio">
+      <h2>Portfolio</h2>
+      <p>Primary Portfolio section with its own Level-2 links.</p>
+    </section>
+
+    <section class="info" id="port-web">
+      <h2>Web Projects</h2>
+      <p>Portfolio sub-page.</p>
+    </section>
+
+    <section class="info" id="port-mobile">
+      <h2>Mobile Apps</h2>
+      <p>Portfolio sub-page.</p>
+    </section>
+
+    <section class="info" id="port-brand">
+      <h2>Branding</h2>
+      <p>Portfolio sub-page.</p>
+    </section>
+
+    <section class="info" id="contact">
+      <h2>Contact</h2>
+      <p>Get in touch. This item has no submenu.</p>
+    </section>
+
+    <section class="info">
+      <h2>How the 2-level sprite nav works</h2>
+      <ul>
+        <li><strong>Level 1</strong> – horizontal flex bar with sprite icons (Home, About, Services, Portfolio, Contact).</li>
+        <li><strong>Level 2</strong> – absolute-positioned dropdown lists that appear on <code>:hover</code> / <code>:focus-within</code>.</li>
+        <li>All navigation icons come from one embedded SVG sprite via CSS <code>background-position</code>, so no separate sprite file is needed.</li>
+        <li>No JavaScript required – pure CSS.</li>
+        <li>Every menu item is a real <code>&lt;a&gt;</code> link with an <code>href</code>.</li>
+      </ul>
+    </section>
+
+    <section class="info" id="responsive-layout">
+      <h2>Responsive layout: Flexbox and Grid</h2>
+      <p>This page adapts its layout to the available screen width, so the navigation and content remain comfortable to use on phones, tablets, and desktop screens.</p>
+
+      <h3>How this page responds</h3>
+      <ul>
+        <li>The main navigation uses <strong>Flexbox</strong> on wider screens to arrange its five links in a horizontal row.</li>
+        <li>Below <code>700px</code>, the navigation switches to a three-column <strong>CSS Grid</strong>. The icons shrink, and dropdowns are repositioned to stay within the screen.</li>
+        <li>The photo gallery uses a flexible Grid that fits two cards side by side when there is room and stacks them into one column on narrow screens.</li>
+        <li>Below <code>480px</code>, the page reduces some spacing and lets the image height follow its width, keeping each photo in a consistent shape.</li>
+      </ul>
+
+      <h3>Flexbox vs. Grid</h3>
+      <ul>
+        <li><strong>Flexbox is one-dimensional:</strong> it arranges items in a row or a column. Use it for a navigation bar, toolbar, or a line of buttons when you mainly care about spacing and alignment in that one direction.</li>
+        <li><strong>Grid is two-dimensional:</strong> it arranges items in rows and columns together. Use it for galleries and page layouts when you want to control how content fits into both dimensions.</li>
+        <li><strong>Rule of thumb:</strong> choose Flexbox when arranging items along one axis; choose Grid when arranging a group across rows and columns. A page can use both, as this one does.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>2-Level CSS Sprite Navigation · <a href="#home">Back to top</a></p>
+  </footer>
+
+</body>
+</html>
