@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homework 6</title>
+  <style>
+    /* This keeps padding from making elements wider than expected. */
+    * {
+      box-sizing: border-box;
+    }
+
+    /* Set the page's default text and background. */
+    body {
+      margin: 0;
+      color: #243247;
+      background: #f4f7fb;
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    /* Give the title and footer the same look. */
+    header {
+      padding: 2rem 1rem;
+      color: white;
+      background: #244a73;
+      text-align: center;
+    }
+
+    /* Remove the extra space above the title. */
+    header h1 {
+      margin: 0;
+    }
+
+    /* The navigation links sit together in a centered row. */
+    nav {
+      background: #183550;
+    }
+
+    nav ul {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin: 0;
+      padding: 0.5rem;
+      list-style: none;
+    }
+
+    nav a {
+      display: block;
+      padding: 0.6rem 0.8rem;
+      border-radius: 0.25rem;
+      color: white;
+      text-decoration: none;
+      transition: color 0.2s ease, background-color 0.2s ease;
+    }
+
+    /* Highlight a link when someone hovers over it or tabs to it. */
+    nav a:hover,
+    nav a:focus-visible {
+      color: #183550;
+      background: #f5c451;
+    }
+
+    /* Keep the main content centered and easy to read. */
+    main {
+      width: min(100% - 2rem, 42rem);
+      margin: 2rem auto;
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      background: white;
+      box-shadow: 0 0.25rem 1rem rgb(24 53 80 / 10%);
+    }
+
+    /* Give each result its own highlighted line. */
+    main p {
+      margin: 0.5rem 0;
+      padding: 0.65rem 0.85rem;
+      border-left: 4px solid #4d86b5;
+      background: #edf4fa;
+    }
+
+    /* Style the Google link like a button. */
+    .google-button {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.7rem 1rem;
+      border-radius: 0.35rem;
+      color: white;
+      background: rgb(36 74 115 / 78%);
+      text-decoration: none;
+      transition: background-color 0.2s ease;
+    }
+
+    /* Darken the button when it's hovered or keyboard focused. */
+    .google-button:hover,
+    .google-button:focus-visible {
+      background: rgb(24 53 80 / 95%);
+    }
+
+    /* Match the footer to the navigation bar. */
+    footer {
+      padding: 1rem;
+      color: white;
+      background: #183550;
+      text-align: center;
+    }
+
+    /* Add a little extra space when there's room on wider screens. */
+    @media (min-width: 480px) {
+      header {
+        padding: 2.5rem 1.5rem;
+      }
+
+      nav ul {
+        gap: 1.5rem;
+      }
+
+      main {
+        padding: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>A Little JavaScript Practice</h1>
+    <p>Here's a quick look at what happens when we work with a few numbers.</p>
+  </header>
+
+  <nav aria-label="Main navigation">
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#contact">Contact Us</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section id="about">
+      <h2>Let's do the math</h2>
+      <p id="demo-a"></p>
+      <p id="demo-b"></p>
+      <p id="demo-c"></p>
+      <p id="demo-d"></p>
+      <p id="demo-e"></p>
+    </section>
+
+    <section id="services">
+      <h2>Curious to learn more?</h2>
+      <a
+        class="google-button"
+        href="https://www.google.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >Visit Google</a>
+    </section>
+
+    <section id="contact">
+      <h2>Contact Us</h2>
+      <p>Thanks for taking a look at my little math demo!</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Have a great day! &#128516;</p>
+  </footer>
+
+  <script>
+    // Work out each value, one step at a time.
+    const a = 10;
+    const b = 5;
+    const c = a - b;
+    const d = 15;
+    const e = c + d;
+
+    // Put each result on its own line in the page.
+    document.getElementById("demo-a").textContent = `a = ${a}`;
+    document.getElementById("demo-b").textContent = `b = ${b}`;
+    document.getElementById("demo-c").textContent = `c = a - b = ${c}`;
+    document.getElementById("demo-d").textContent = `d = ${d}`;
+    document.getElementById("demo-e").textContent = `e = c + d = ${e}`;
+  </script>
+</body>
+</html>
