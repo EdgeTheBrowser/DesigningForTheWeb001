@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <title>How JavaScript if / else Statements Work</title>
+</head>
+<body>
+
+<header>
+  <h1>JavaScript if...else Statements</h1>
+  <p>A complete guide to conditional branching, evaluation flow, truthy/falsy values, and common pitfalls in JavaScript.</p>
+</header>
+
+<main>
+  <!-- 1. Overview -->
+  <section>
+    <h2>1. What Is an if...else Statement?</h2>
+    <p>
+      By default, JavaScript executes code sequentially from top to bottom. Conditional statements allow your program to make decisions and execute different blocks of code depending on whether a specified condition evaluates to true or false.
+    </p>
+    <div class="callout">
+      <strong>Core Rule:</strong> JavaScript evaluates the expression inside parentheses ( ... ) and converts the result into a Boolean (true or false) before deciding which block to run.
+    </div>
+  </section>
+
+</main>
+
+</body>
+
+<h1>JavaScript Statements</h1>
+<h2>The if Statement</h2>
+
+<p>Display "Good day" if the hour is less than 20:00:</p>
+
+<p id="demo"></p>
+
+<script>
+let hour = new Date().getHours();
+if (hour < 20) {
+  document.getElementById("demo").innerHTML = "Good day";
+}
+</script>
+
+</body>
+
