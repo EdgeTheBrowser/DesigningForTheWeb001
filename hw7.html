@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+  <title>Random Link Homework 7</title>
+
+</head>
+
+<body>
+  <header>
+    
+    <h1>Random Link Homework 7</h1>
+  
+  </header>
+
+  <p><a href="#" id="random-link">Pick at random</a></p>
+
+  <form id="signup" novalidate>
+    <label>Name <input name="name" required></label><br>
+    <label>Email <input name="email" type="email" required></label><br>
+    <label>Password <input name="password" type="password" minlength="8" required></label><br>
+    <button>Submit</button>
+  </form>
+  <p id="message" aria-live="polite"></p>
+
+  <nav aria-label="Destinations">
+    <a href="https://www.yahoo.com/">Yahoo</a>
+    <a href="https://www.google.com/">Google</a>
+    <a href="https://www.facebook.com/login/">Facebook</a>
+  </nav>
+
+  <script>
+    const destinations = [
+      "https://www.yahoo.com/",
+      "https://www.google.com/",
+      "https://www.facebook.com/login/"
+    ];
+
+    document.getElementById("random-link").addEventListener("click", event => {
+      event.preventDefault();
+      const number = Math.floor(Math.random() * 6) + 1;
+      const destination = number < 3 ? destinations[0] : number <= 5 ? destinations[1] : destinations[2];
+      window.location.href = destination;
+    });
+
+    document.getElementById("signup").addEventListener("submit", event => {
+      event.preventDefault();
+      const form = event.currentTarget;
+      const name = form.elements.name.value.trim();
+      const email = form.elements.email.value.trim();
+      const password = form.elements.password.value;
+      let message = "Form is valid.";
+
+      if (!name) message = "Enter your name.";
+      else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) message = "Enter a valid email.";
+      else if (password.length < 8) message = "Password must be at least 8 characters.";
+
+      document.getElementById("message").textContent = message;
+    });
+  </script>
+</body>
+</html>
